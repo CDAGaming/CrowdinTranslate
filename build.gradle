@@ -1,14 +1,14 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version '0.11-SNAPSHOT'
     id 'java-gradle-plugin'
     id 'maven-publish'
 }
 
-sourceCompatibility = 16
-targetCompatibility = 16
+sourceCompatibility = 17
+targetCompatibility = 17
 
 archivesBaseName = "crowdin-translate"
-version = "1.4+22w03a"
+version = "1.4+22w05a"
 
 loom {
     mixin.defaultRefmapName = "crowdin-translate-refmap.json";
@@ -26,9 +26,9 @@ processResources {
 // They are only included to make loom happy.
 // Use old versions intentionally to make this work with a broad range of MCs.
 dependencies {
-    minecraft "com.mojang:minecraft:1.18-pre5"
-    mappings "net.fabricmc:yarn:1.18-pre5+build.4:v2"
-    modImplementation "net.fabricmc:fabric-loader:0.12.12"
+    minecraft "com.mojang:minecraft:22w05a"
+    mappings "net.fabricmc:yarn:22w05a+build.1:v2"
+    modImplementation "net.fabricmc:fabric-loader:0.13.1"
 }
 
 
@@ -58,18 +58,18 @@ gradlePlugin {
 }
 
 group = "de.guntram.mcmod"
+// configure the maven publication
 publishing {
     publications {
-	mavenJava(MavenPublication) {
-	    artifact(remapJar) {
-		// builtBy remapJar
-	    }
-	}
-    }
-    repositories {
-        maven {
-            url = "file://tmp/mymavenrepo"
+        mavenJava(MavenPublication) {
+            from components.java
         }
+    }
+
+    // select the repositories you want to publish to
+    repositories {
+        // uncomment to publish to the local maven
+        // mavenLocal()
     }
 }
 
